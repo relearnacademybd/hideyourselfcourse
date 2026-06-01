@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hide Yourself Online — Privacy & Security Course</title>
+<meta name="description" content="অনলাইন প্রাইভেসি, সিকিউরিটি ও ডিজিটাল প্রোটেকশন কোর্স — সম্পূর্ণ বাংলায়">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080c18;
+  --bg2: #0d1220;
+  --bg3: #111827;
+  --bg4: #1a2235;
+  --acc: #00e5ff;
+  --acc2: #7c3aed;
+  --acc3: #10b981;
+  --acc4: #f59e0b;
+  --txt: #e2e8f0;
+  --muted: #64748b;
+  --muted2: #94a3b8;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(0,229,255,0.2);
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Hind Siliguri', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--txt);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--acc2); border-radius: 2px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(8,12,24,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 800; font-size: 1rem;
+  color: var(--acc);
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  color: var(--muted2); text-decoration: none;
+  font-size: .85rem; font-weight: 500;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--acc); }
+.nav-cta {
+  background: var(--acc2); color: #fff;
+  padding: .45rem 1.2rem; border-radius: 6px;
+  text-decoration: none; font-size: .85rem; font-weight: 600;
+  transition: opacity .2s;
+}
+.nav-cta:hover { opacity: .85; }
+.hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--txt); font-size: 1.4rem; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 100px 5% 60px;
+  position: relative; overflow: hidden;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+}
+.hero-glow1 {
+  position: absolute; top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-glow2 {
+  position: absolute; bottom: -80px; left: -80px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,229,255,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,229,255,0.08);
+  border: 1px solid rgba(0,229,255,0.25);
+  color: var(--acc); font-size: .75rem; font-family: monospace;
+  padding: 5px 14px; border-radius: 20px;
+  margin-bottom: 1.5rem; letter-spacing: .8px;
+  width: fit-content;
+  animation: fadeUp .6s ease both;
+}
+.pulse-dot {
+  width: 7px; height: 7px; background: var(--acc);
+  border-radius: 50%; animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.8)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+.hero-tag {
+  font-family: monospace; font-size: .8rem;
+  color: rgba(0,229,255,.5); letter-spacing: 2px;
+  margin-bottom: .75rem;
+  animation: fadeUp .6s .1s ease both;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 800; line-height: 1.05;
+  margin-bottom: .5rem;
+  animation: fadeUp .6s .2s ease both;
+}
+.hero h1 span { color: var(--acc); }
+.hero-sub {
+  font-size: clamp(.95rem, 2vw, 1.15rem);
+  color: var(--muted2); max-width: 560px;
+  margin-bottom: 2.5rem; line-height: 1.75;
+  animation: fadeUp .6s .3s ease both;
+}
+.hero-actions {
+  display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+  animation: fadeUp .6s .4s ease both;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #0093b0, #5b21b6);
+  color: #fff; padding: .85rem 2rem;
+  border-radius: 8px; text-decoration: none;
+  font-weight: 700; font-size: .95rem;
+  transition: transform .2s, box-shadow .2s;
+  border: none; cursor: pointer;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,229,255,.2); }
+.btn-outline {
+  border: 1px solid var(--border2); color: var(--acc);
+  padding: .85rem 2rem; border-radius: 8px;
+  text-decoration: none; font-weight: 600; font-size: .95rem;
+  transition: background .2s;
+}
+.btn-outline:hover { background: rgba(0,229,255,.08); }
+
+.hero-price {
+  display: flex; align-items: center; gap: 1rem;
+  animation: fadeUp .6s .5s ease both; margin-top: 1.5rem;
+}
+.price-new { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; color: var(--acc3); }
+.price-old { font-size: 1.1rem; color: var(--muted); text-decoration: line-through; }
+.price-badge {
+  background: #dc2626; color: #fff;
+  font-size: .75rem; font-weight: 700;
+  padding: 4px 12px; border-radius: 20px; letter-spacing: .3px;
+}
+.hero-stats {
+  display: flex; gap: 2.5rem; flex-wrap: wrap;
+  margin-top: 3rem; padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  animation: fadeUp .6s .6s ease both;
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: var(--font-display); font-size: 1.8rem;
+  font-weight: 800; color: var(--acc);
+}
+.stat-lbl { font-size: .8rem; color: var(--muted2); }
+
+/* ── SECTIONS ── */
+section { padding: 80px 5%; }
+.section-label {
+  font-family: monospace; font-size: .72rem;
+  color: var(--acc); letter-spacing: 3px;
+  text-transform: uppercase; margin-bottom: .75rem;
+}
+.section-title {
+  font-family: var(--font-display); font-size: clamp(1.6rem,4vw,2.4rem);
+  font-weight: 800; margin-bottom: 1rem;
+}
+.section-desc { color: var(--muted2); max-width: 540px; font-size: .95rem; margin-bottom: 3rem; }
+
+/* ── AUDIENCE ── */
+#audience { background: var(--bg2); }
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+.audience-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 1rem 1.25rem;
+  display: flex; align-items: center; gap: 12px;
+  transition: border-color .25s, transform .2s;
+}
+.audience-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.audience-icon {
+  width: 38px; height: 38px; border-radius: 8px;
+  background: rgba(0,229,255,.08);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.audience-card span { font-size: .9rem; font-weight: 500; }
+
+/* ── MODULES ── */
+#modules { background: var(--bg); }
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 16px;
+}
+@media(max-width:560px) { .modules-grid { grid-template-columns: 1fr; } }
+
+.module-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+  transition: border-color .25s, transform .2s;
+  cursor: pointer;
+}
+.module-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.module-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 1.1rem 1.25rem; position: relative;
+}
+.module-header::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; border-radius: 0 2px 2px 0;
+}
+.mod-num {
+  font-family: monospace; font-size: .7rem;
+  color: var(--muted); min-width: 28px;
+  font-weight: 600; letter-spacing: .5px;
+}
+.mod-title-wrap { flex: 1; }
+.mod-title { font-weight: 700; font-size: .95rem; color: var(--txt); }
+.mod-arrow {
+  color: var(--muted); font-size: 1rem;
+  transition: transform .3s; flex-shrink: 0;
+}
+.module-card.open .mod-arrow { transform: rotate(180deg); }
+
+.module-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height .4s ease, padding .3s ease;
+  padding: 0 1.25rem;
+}
+.module-card.open .module-body {
+  max-height: 600px; padding: 0 1.25rem 1.1rem;
+}
+.sub-list {
+  list-style: none;
+  border-top: 1px solid var(--border);
+  padding-top: .85rem;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.sub-list li {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: .85rem; color: var(--muted2); line-height: 1.5;
+}
+.sub-list li::before {
+  content: '›'; color: var(--acc); font-size: 1rem;
+  line-height: 1.4; flex-shrink: 0;
+}
+
+/* Module accent colors */
+.m1 .module-header::before, .m2 .module-header::before, .m3 .module-header::before { background: #00e5ff; }
+.m4 .module-header::before, .m5 .module-header::before, .m6 .module-header::before { background: #7c3aed; }
+.m7 .module-header::before, .m8 .module-header::before, .m9 .module-header::before { background: #10b981; }
+.m10 .module-header::before, .m11 .module-header::before { background: #f59e0b; }
+.m12 .module-header::before, .m13 .module-header::before { background: #ef4444; }
+
+.m1 .mod-num, .m2 .mod-num, .m3 .mod-num { color: #00e5ff; }
+.m4 .mod-num, .m5 .mod-num, .m6 .mod-num { color: #a78bfa; }
+.m7 .mod-num, .m8 .mod-num, .m9 .mod-num { color: #10b981; }
+.m10 .mod-num, .m11 .mod-num { color: #f59e0b; }
+.m12 .mod-num, .m13 .mod-num { color: #ef4444; }
+
+/* ── OUTCOMES ── */
+#outcomes { background: var(--bg2); }
+.outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+.outcome-item {
+  background: rgba(16,185,129,.06);
+  border: 1px solid rgba(16,185,129,.2);
+  border-radius: 10px; padding: .85rem 1rem;
+  display: flex; align-items: center; gap: 10px;
+  font-size: .9rem; font-weight: 500;
+  transition: background .25s;
+}
+.outcome-item:hover { background: rgba(16,185,129,.12); }
+.check-icon {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--acc3); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; color: #fff; font-weight: 700;
+}
+
+/* ── FEATURES ── */
+#features { background: var(--bg); }
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.feature-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.5rem 1.25rem;
+  text-align: center;
+  transition: border-color .25s, transform .2s;
+}
+.feature-card:hover { border-color: rgba(124,58,237,.4); transform: translateY(-3px); }
+.feature-icon { font-size: 1.8rem; margin-bottom: .75rem; }
+.feature-title { font-weight: 700; font-size: .95rem; margin-bottom: .4rem; }
+.feature-desc { font-size: .82rem; color: var(--muted2); }
+
+/* ── PAYMENT ── */
+#payment {
+  background: var(--bg2);
+  text-align: center;
+}
+.payment-box {
+  max-width: 640px; margin: 0 auto;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 16px; padding: 2.5rem 2rem;
+}
+.steps { display: flex; flex-direction: column; gap: 1.25rem; text-align: left; margin: 2rem 0; }
+.step {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg4); border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.step-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: .9rem; flex-shrink: 0;
+}
+.s1 .step-num { background: rgba(0,229,255,.15); color: var(--acc); }
+.s2 .step-num { background: rgba(124,58,237,.15); color: #a78bfa; }
+.s3 .step-num { background: rgba(16,185,129,.15); color: var(--acc3); }
+.step-content h4 { font-size: .95rem; font-weight: 700; margin-bottom: .25rem; }
+.step-content p { font-size: .85rem; color: var(--muted2); }
+.step-content a { color: var(--acc); text-decoration: none; }
+.step-content a:hover { text-decoration: underline; }
+.price-highlight {
+  background: linear-gradient(135deg, rgba(0,229,255,.08), rgba(124,58,237,.08));
+  border: 1px solid var(--border2); border-radius: 12px;
+  padding: 1.5rem; margin-bottom: 1.5rem;
+}
+.price-highlight .price-row { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+.lim-badge {
+  display: inline-block; background: rgba(245,158,11,.12);
+  border: 1px solid rgba(245,158,11,.3); color: var(--acc4);
+  font-size: .75rem; font-family: monospace;
+  padding: 4px 12px; border-radius: 20px;
+  margin-bottom: 1rem; letter-spacing: .5px;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 5%;
+  text-align: center;
+}
+.footer-logo {
+  font-family: var(--font-display); font-size: 1.2rem;
+  font-weight: 800; color: var(--acc); margin-bottom: .75rem;
+}
+.footer-tagline { font-size: .85rem; color: var(--muted); margin-bottom: 1rem; }
+.footer-tags { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; }
+.footer-tag {
+  font-size: .75rem; font-family: monospace;
+  color: var(--muted); padding: 3px 10px;
+  border: 1px solid var(--border); border-radius: 20px;
+}
+
+/* ── MOBILE NAV ── */
+.mobile-menu {
+  display: none; flex-direction: column; gap: 1rem;
+  position: fixed; top: 60px; left: 0; right: 0;
+  background: var(--bg2); padding: 1.5rem 5%;
+  border-bottom: 1px solid var(--border); z-index: 99;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: var(--muted2); text-decoration: none;
+  font-weight: 500; font-size: 1rem;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: block; }
+  .hero-stats { gap: 1.5rem; }
+  .stat-num { font-size: 1.4rem; }
+  .modules-grid { grid-template-columns: 1fr; }
+}
+@media(max-width:480px) {
+  section { padding: 60px 4%; }
+  .hero { padding: 90px 4% 50px; }
+  .hero h1 { font-size: 2.4rem; }
+  .hero-actions { flex-direction: column; }
+  .btn-primary, .btn-outline { width: 100%; text-align: center; }
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">🔐 HIDE YOURSELF</a>
+  <ul class="nav-links">
+    <li><a href="#modules">মডিউলস</a></li>
+    <li><a href="#outcomes">আউটকামস</a></li>
+    <li><a href="#features">সুবিধা</a></li>
+    <li><a href="#payment">ভর্তি হন</a></li>
+  </ul>
+  <a href="#payment" class="nav-cta">৳৪৯৯ এ শুরু করুন</a>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="menu">☰</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#modules" onclick="toggleMenu()">মডিউলস</a>
+  <a href="#outcomes" onclick="toggleMenu()">আউটকামস</a>
+  <a href="#features" onclick="toggleMenu()">সুবিধা</a>
+  <a href="#payment" onclick="toggleMenu()">ভর্তি হন</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow1"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-badge">
+    <span class="pulse-dot"></span>
+    ONLINE COURSE &nbsp;//&nbsp; সম্পূর্ণ বাংলায়
+  </div>
+  <p class="hero-tag">// আপনার গোপনীয়তাই আপনার শক্তি</p>
+  <h1>HIDE YOURSELF<br><span>ONLINE</span></h1>
+  <p class="hero-sub">Online Privacy, Security & Digital Protection — বর্তমান ডিজিটাল যুগে আপনার ডিভাইস, পরিচয় ও ব্যক্তিগত তথ্য সুরক্ষিত রাখতে শিখুন।</p>
+
+  <div class="hero-actions">
+    <a href="#payment" class="btn-primary">এখনই এনরোল করুন →</a>
+    <a href="#modules" class="btn-outline">মডিউলস দেখুন</a>
+  </div>
+
+  <div class="hero-price">
+    <span class="price-new">৳৪৯৯</span>
+    <span class="price-old">৳১৯৯৯</span>
+    <span class="price-badge">৭৫% ছাড়</span>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">১৩</div>
+      <div class="stat-lbl">মডিউল</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">১০০%</div>
+      <div class="stat-lbl">বাংলায়</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">∞</div>
+      <div class="stat-lbl">লাইফটাইম অ্যাক্সেস</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">০</div>
+      <div class="stat-lbl">পূর্ব অভিজ্ঞতা দরকার নেই</div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section id="audience">
+  <div class="reveal">
+    <p class="section-label">// TARGET AUDIENCE</p>
+    <h2 class="section-title">এই কোর্সটি কাদের জন্য?</h2>
+    <p class="section-desc">যে কেউ অনলাইনে নিরাপদ থাকতে চান তাদের জন্যই এই কোর্স।</p>
+  </div>
+  <div class="audience-grid reveal">
+    <div class="audience-card"><div class="audience-icon">🌐</div><span>সাধারণ ইন্টারনেট ব্যবহারকারী</span></div>
+    <div class="audience-card"><div class="audience-icon">🎓</div><span>শিক্ষার্থী ও চাকরিপ্রার্থী</span></div>
+    <div class="audience-card"><div class="audience-icon">💼</div><span>ফ্রিল্যান্সার</span></div>
+    <div class="audience-card"><div class="audience-icon">📱</div><span>কন্টেন্ট ক্রিয়েটর</span></div>
+    <div class="audience-card"><div class="audience-icon">🛒</div><span>অনলাইন ব্যবসায়ী</span></div>
+    <div class="audience-card"><div class="audience-icon">🔒</div><span>ডিজিটাল প্রাইভেসি সচেতন ব্যক্তি</span></div>
+    <div class="audience-card"><div class="audience-icon">💻</div><span>যারা নিজেদের ডিভাইস নিরাপদ রাখতে চান</span></div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section id="modules">
+  <div class="reveal">
+    <p class="section-label">// COURSE CURRICULUM</p>
+    <h2 class="section-title">১৩টি সম্পূর্ণ মডিউল</h2>
+    <p class="section-desc">প্রতিটি মডিউলে ক্লিক করুন সব সাবটপিক দেখতে।</p>
+  </div>
+  <div class="modules-grid reveal">
+
+    <!-- Module 1 -->
+    <div class="module-card m1" onclick="toggleModule(this)">
+      <div class="module-header">
+        <span class="mod-num">01</span>
+        <div class="mod-title-wrap">
+          <div class="mod-title">অনলাইন প্রাইভেসি ও সাইবার সিকিউরিটির পরিচিতি</div>
+        </div>
+        <span class="mod-arrow">▾</span>
+      </div>
+      <div class="module-body">
+        <ul class="sub-list">
+          <li>অনলাইন প্রাইভেসি কী এবং কেন গুরুত্বপূর্ণ</li>
+          <li>সাইবার সিকিউরিটির মৌলিক ধারণা</li>
+          <li>ডিজিটাল ফুটপ্রিন্ট — আপনি কতটা ট্র্যাক হচ্ছেন</li>
+          <li>অনলাইন ট্র্যাকিং কিভাবে কাজ করে</li>
+          <li>বর্তমান সাইবার ঝুঁকি ও হুমকি পরিচিতি</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Module 2 -->
+    <div class="module-card m2" onclick="toggleModule(this)">
+      <div class="module-header">
+        <span class="mod-num">02</span>
+        <div class="mod-title-wrap">
+          <div class="mod-title">ল্যাব সেটআপ ও সিকিউরিটি টুলস</div>
+        </div>
+        <span class="mod-arrow">▾</span>
+      </div>
+      <div class="module-body">
+        <ul class="sub-list">
+          <li>নিরাপদ ল্যাব পরিবেশ তৈরি করা</li>
+          <li>প্রয়োজনীয় টুলস ইনস্টলেশন গাইড</li>
+          <li>সিস্টেম কনফিগারেশন সেটআপ</li>
+          <li>সাধারণ সমস্যা ও সমাধান</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Module 3 -->
+    <div class="module-card m3" onclick="toggleModule(this)">
+      <div class="module-header">
+        <span class="mod-num">03</span>
+        <div class="mod-title-wrap">
+          <div class="mod-title">সিকিউরিটি টুলস সেটআপ ও কনফিগারেশন</div>
+        </div>
+        <span class="mod-arrow">▾</span>
+      </div>
+      <div class="module-body">
+        <ul class="sub-list">
+          <li>বিভিন্ন সিকিউরিটি টুলস পরিচিতি</li>
+          <li>টুলস কনফিগারেশন ও অপটিমাইজেশন</li>
+          <li>নিরাপদ ব্যবহারের পদ্ধতি</li>
+          <li>ত্রুটি শনাক্ত ও সমাধানের কৌশল</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Module 4 -->
+    <div class="module-card m4" onclick="toggleModule(this)">
+      <div class="module-header">
+        <span class="mod-num">04</span>
+        <div class="mod-title-wrap">
+          <div class="mod-title">অনলাইন অ্যানোনিমিটি ও নিরাপদ ব্রাউজিং</div>
+        </div>
+        <span class="mod-arrow">▾</span>
+      </div>
+      <div class="module-body">
+        <ul class="sub-list">
+          <li>ডিজিটাল পরিচয় লুকানোর কৌশল</li>
+          <li>অনলাইন ট্র্যাকিং থেকে বাঁচার উপায়</li>
+          <li>ব্যক্তিগত তথ্য সুরক্ষার পদ্ধতি</li>
+          <li>নিরাপদ ব্রাউজিং অভ্যাস গঠন</li>
+          <li>ব্রাউজার প্রাইভেসি সেটিংস অপটিমাইজেশন</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Module 5 -->
+    <div class="module-card m5" onclick="toggleModule(this)">
+      <div class="module-header">
+        <span class="mod-num">05</span>
+        <div class="mod-title-wrap">
+          <div class="mod-title">Tor ও Proxychains</div>
+        </div>
+        <span class="mod-arrow">▾</span>
+      </div>
+      <div class="module-body">
+        <ul class="sub-list">
+          <li>Tor নেটওয়ার্ক কী এবং কিভাবে কাজ করে</li>
+          <li>Tor ব্রাউজার ইনস্টলেশন ও কনফিগারেশন</li>
+          <li>Proxychains সেটআপ ও কনফিগারেশন</li>
+          <li>Tor + Proxychains একসাথে ব্যবহার</li>
+          <li>সাধারণ সমস্যা ও তাদের সমাধান</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Module 6 -->
+    <div class="module-card m6" onclick="toggleModule(this)">
+      <div class="module-header">
+        <span class="mod-num">06</span>
+        <div class="mod-title-wrap">
+          <div class="mod-title">MAC Address ও ডিভাইস পরিচয় সুরক্ষা</div>
+        </div>
+        <span class="mod-arrow">▾</span>
+      </div>
+      <div class="module-body">
+        <ul class="sub-list">
+          <li>MAC Address কী এবং এর গুরুত্ব</li>
+          <li>MAC Address কিভাবে ট্র্যাকিং এ ব্যবহৃত হয়</li>
+          <li>ডিভাইস পরিচয় সুরক্ষার ধারণা</li>
+          <li>MAC Address পরিবর্তন ও কনফিগারেশন</li>
+          <li>প্র্যাকটিক্যাল সেশন — হাতে-কলমে অনুশীলন</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Module 7 -->
+    <div class="module-card m7" onclick="toggleModule(this)">
+      <div class="module-header">
+        <span class="mod-num">07</span>
+        <div class="mod-title-wrap">
+          <div class="mod-title">Anti-Detect Browser ও Browser Fingerprint Protection</div>
+        </div>
+        <span class="mod-arrow">▾</span>
+      </div>
+      <div class="module-body">
+        <ul class="sub-list">
+          <li>Anti-Detect Browser কী এবং কেন প্রয়োজন</li>
+          <li>Browser Fingerprint কী — কিভাবে আপনি শনাক্ত হন</li>
+          <li>Fingerprint Tracking কিভাবে কাজ করে</li>
+          <li>Browser Tracking Methods বিশ্লেষণ</li>
+          <li>Browser Profile Management</li>
+          <li>Multiple Profile Configuration</li>
+          <li>Cookie Isolation কৌশল</li>
+          <li>Fingerprint Leak Detection</li>
+          <li>Anti Tracking Configuration</li>
+          <li>Privacy Protection Techniques</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Module 8 -->
+    <div class="module-card m8" onclick="toggleModule(this)">
+      <div class="module-header">
+        <span class="mod-num">08</span>
+        <div class="mod-title-wrap">
+          <div class="mod-title">Android Security Masterclass</div>
+        </div>
+        <span class="mod-arrow">▾</span>
+      </div>
+      <div class="module-body">
+        <ul class="sub-list">
+          <li>Android Security Fundamentals</li>
+          <li>App Permission Analysis — কোন অ্যাপ কী নেয়</li>
+          <li>ক্ষতিকর অ্যাপ শনাক্তকরণের পদ্ধতি</li>
+          <li>নিরাপদ অ্যাপ ব্যবহারের নীতি</li>
+          <li>Android Privacy Settings অপটিমাইজেশন</li>
+          <li>Device Hardening Techniques</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Module 9 -->
+    <div class="module-card m9" onclick="toggleModule(this)">
+      <div class="module-header">
+        <span class="mod-num">09</span>
+        <div class="mod-title-wrap">
+          <div class="mod-title">Windows Security Masterclass</div>
+        </div>
+        <span class="mod-arrow">▾</span>
+      </div>
+      <div class="module-body">
+        <ul class="sub-list">
+          <li>Windows Security Fundamentals</li>
+          <li>Windows Defender কনফিগারেশন ও অপটিমাইজেশন</li>
+          <li>Firewall Configuration — সঠিক নিয়মে সেটআপ</li>
+          <li>Privacy Settings Optimization</li>
+          <li>Secure Software Installation গাইড</li>
+          <li>Windows Hardening Techniques</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Module 10 -->
+    <div class="module-card m10" onclick="toggleModule(this)">
+      <div class="module-header">
+        <span class="mod-num">10</span>
+        <div class="mod-title-wrap">
+          <div class="mod-title">Malware Detection & Analysis</div>
+        </div>
+        <span class="mod-arrow">▾</span>
+      </div>
+      <div class="module-body">
+        <ul class="sub-list">
+          <li>Malware কী এবং এর ধরনসমূহ</li>
+          <li>Virus, Trojan, Worm, Spyware, Ransomware পরিচিতি</li>
+          <li>Malware কিভাবে ছড়ায় — বিস্তারের পথ</li>
+          <li>Malware কিভাবে কাজ করে — কার্যপ্রণালী</li>
+          <li>আক্রান্ত ডিভাইসের লক্ষণ চেনার উপায়</li>
+          <li>সন্দেহজনক ফাইল শনাক্তকরণ</li>
+          <li>নিরাপদ বিশ্লেষণ পদ্ধতি</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Module 11 -->
+    <div class="module-card m11" onclick="toggleModule(this)">
+      <div class="module-header">
+        <span class="mod-num">11</span>
+        <div class="mod-title-wrap">
+          <div class="mod-title">Malware Removal & System Cleanup</div>
+        </div>
+        <span class="mod-arrow">▾</span>
+      </div>
+      <div class="module-body">
+        <ul class="sub-list">
+          <li>Malware শনাক্তকরণের ধাপসমূহ</li>
+          <li>Windows থেকে Malware অপসারণ</li>
+          <li>Android থেকে Malware অপসারণ</li>
+          <li>Browser Cleanup — দূষিত এক্সটেনশন ও সেটিংস পরিষ্কার</li>
+          <li>Startup Program Analysis</li>
+          <li>System Cleanup সম্পূর্ণ প্রক্রিয়া</li>
+          <li>Recovery Techniques — আক্রান্তের পর পুনরুদ্ধার</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Module 12 -->
+    <div class="module-card m12" onclick="toggleModule(this)">
+      <div class="module-header">
+        <span class="mod-num">12</span>
+        <div class="mod-title-wrap">
+          <div class="mod-title">বাংলাদেশ সাইবার আইন ও ডিজিটাল নিরাপত্তা</div>
+        </div>
+        <span class="mod-arrow">▾</span>
+      </div>
+      <div class="module-body">
+        <ul class="sub-list">
+          <li>বাংলাদেশে সাইবার অপরাধের পরিচিতি</li>
+          <li>প্রচলিত সাইবার আইন ও বিধিমালা</li>
+          <li>ডিজিটাল নিরাপত্তা আইনের মূল বিষয়</li>
+          <li>অনলাইন প্রতারণা ও স্ক্যাম থেকে সুরক্ষা</li>
+          <li>সোশ্যাল মিডিয়া ব্যবহারের আইনগত দিক</li>
+          <li>সাইবার অপরাধ রিপোর্টিং প্রক্রিয়া</li>
+          <li>ডিজিটাল নাগরিকের দায়িত্ব ও অধিকার</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Module 13 -->
+    <div class="module-card m13" onclick="toggleModule(this)">
+      <div class="module-header">
+        <span class="mod-num">13</span>
+        <div class="mod-title-wrap">
+          <div class="mod-title">বাস্তব জীবনের সাইবার সুরক্ষা</div>
+        </div>
+        <span class="mod-arrow">▾</span>
+      </div>
+      <div class="module-body">
+        <ul class="sub-list">
+          <li>শক্তিশালী পাসওয়ার্ড তৈরির নিয়ম</li>
+          <li>Two Factor Authentication (2FA) সেটআপ</li>
+          <li>Phishing শনাক্তকরণ ও প্রতিরোধ</li>
+          <li>Social Engineering Awareness</li>
+          <li>নিরাপদ ইমেইল ব্যবহারের পদ্ধতি</li>
+          <li>নিরাপদ সোশ্যাল মিডিয়া ব্যবহার</li>
+          <li>ব্যক্তিগত তথ্য সুরক্ষার চূড়ান্ত গাইড</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section id="outcomes">
+  <div class="reveal">
+    <p class="section-label">// LEARNING OUTCOMES</p>
+    <h2 class="section-title">কোর্স শেষে আপনি যা শিখবেন</h2>
+    <p class="section-desc">১৩টি মডিউল শেষ করলে আপনি এই সব দক্ষতা অর্জন করবেন।</p>
+  </div>
+  <div class="outcomes-grid reveal">
+    <div class="outcome-item"><div class="check-icon">✓</div>অনলাইন প্রাইভেসি সুরক্ষা</div>
+    <div class="outcome-item"><div class="check-icon">✓</div>নিরাপদ ব্রাউজিং</div>
+    <div class="outcome-item"><div class="check-icon">✓</div>Tor ও Privacy Tools ব্যবহার</div>
+    <div class="outcome-item"><div class="check-icon">✓</div>Android Security</div>
+    <div class="outcome-item"><div class="check-icon">✓</div>Windows Security</div>
+    <div class="outcome-item"><div class="check-icon">✓</div>Browser Fingerprint Protection</div>
+    <div class="outcome-item"><div class="check-icon">✓</div>Anti Tracking Techniques</div>
+    <div class="outcome-item"><div class="check-icon">✓</div>Malware Detection</div>
+    <div class="outcome-item"><div class="check-icon">✓</div>Malware Removal</div>
+    <div class="outcome-item"><div class="check-icon">✓</div>Data Protection</div>
+    <div class="outcome-item"><div class="check-icon">✓</div>Bangladesh Cyber Law</div>
+    <div class="outcome-item"><div class="check-icon">✓</div>Digital Safety Awareness</div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="reveal">
+    <p class="section-label">// COURSE BENEFITS</p>
+    <h2 class="section-title">কোর্সের সুবিধাসমূহ</h2>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <div class="feature-icon">🇧🇩</div>
+      <div class="feature-title">সম্পূর্ণ বাংলায়</div>
+      <div class="feature-desc">মাতৃভাষায় শিখুন, সহজে বুঝুন</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎬</div>
+      <div class="feature-title">রেকর্ডেড ভিডিও ক্লাস</div>
+      <div class="feature-desc">যেকোনো সময় যেকোনো জায়গা থেকে দেখুন</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">♾️</div>
+      <div class="feature-title">লাইফটাইম অ্যাক্সেস</div>
+      <div class="feature-desc">একবার কিনুন, সারাজীবন ব্যবহার করুন</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛠️</div>
+      <div class="feature-title">প্র্যাকটিক্যাল ডেমো</div>
+      <div class="feature-desc">হাতে-কলমে শেখার সুযোগ</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌱</div>
+      <div class="feature-title">Beginner Friendly</div>
+      <div class="feature-desc">কোনো পূর্ব অভিজ্ঞতা ছাড়াই শুরু করুন</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔄</div>
+      <div class="feature-title">নিয়মিত আপডেট</div>
+      <div class="feature-desc">সর্বশেষ তথ্য ও কৌশল সংযুক্ত করা হয়</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👥</div>
+      <div class="feature-title">সাপোর্ট গ্রুপ</div>
+      <div class="feature-desc">সমস্যায় সহযোগিতার জন্য গ্রুপ সাপোর্ট</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section id="payment">
+  <div class="reveal">
+    <p class="section-label">// ENROLLMENT</p>
+    <h2 class="section-title" style="text-align:center">এখনই ভর্তি হন</h2>
+  </div>
+  <div class="payment-box reveal">
+    <div class="lim-badge">⏳ সীমিত সময়ের অফার</div>
+    <div class="price-highlight">
+      <div class="price-row">
+        <span class="price-new">৳৪৯৯</span>
+        <span class="price-old">৳১৯৯৯</span>
+        <span class="price-badge">৭৫% ছাড়</span>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step s1">
+        <div class="step-num">১</div>
+        <div class="step-content">
+          <h4>বিকাশ / নগদ থেকে Send Money করুন</h4>
+          <p>নম্বর: <strong>01979690947</strong> (Personal) — পরিমাণ: <strong>৳৪৯৯</strong></p>
+        </div>
+      </div>
+      <div class="step s2">
+        <div class="step-num">২</div>
+        <div class="step-content">
+          <h4>Transaction ID সংগ্রহ করুন</h4>
+          <p>সম্পূর্ণ Transaction ID অথবা শেষ ৪ ডিজিট লিখে রাখুন</p>
+        </div>
+      </div>
+      <div class="step s3">
+        <div class="step-num">৩</div>
+        <div class="step-content">
+          <h4>গুগল ফর্ম পূরণ করুন</h4>
+          <p><a href="https://forms.gle/NDdwySRKwpREsCgC9" target="_blank" rel="noopener">👉 https://forms.gle/NDdwySRKwpREsCgC9</a></p>
+        </div>
+      </div>
+    </div>
+
+    <a href="https://forms.gle/NDdwySRKwpREsCgC9" target="_blank" rel="noopener" class="btn-primary" style="display:block;text-align:center;font-size:1.05rem;padding:1rem">
+      গুগল ফর্ম পূরণ করুন →
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🔐 HIDE YOURSELF ONLINE</div>
+  <p class="footer-tagline">আপনার গোপনীয়তাই আপনার শক্তি</p>
+  <div class="footer-tags">
+    <span class="footer-tag">Privacy</span>
+    <span class="footer-tag">Security</span>
+    <span class="footer-tag">Anonymous</span>
+    <span class="footer-tag">Data Protection</span>
+    <span class="footer-tag">Bangladesh Cyber Law</span>
+    <span class="footer-tag">Malware Defense</span>
+  </div>
+  <p style="margin-top:1.5rem;font-size:.75rem;color:var(--muted)">© 2025 Hide Yourself Online. All rights reserved.</p>
+</footer>
+
+<script>
+function toggleModule(el) {
+  el.classList.toggle('open');
+}
+
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Close mobile menu on outside click
+document.addEventListener('click', (e) => {
+  const menu = document.getElementById('mobileMenu');
+  const hamburger = document.querySelector('.hamburger');
+  if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+    menu.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
